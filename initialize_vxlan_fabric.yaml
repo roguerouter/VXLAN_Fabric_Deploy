@@ -1,0 +1,15 @@
+---
+- hosts: all
+  gather_facts: false
+  roles:
+    - role: common
+      
+- hosts: spine
+  gather_facts: false
+  roles:
+    - role: spine
+
+- hosts: leaf
+  gather_facts: false
+  roles: 
+    - role: leaf

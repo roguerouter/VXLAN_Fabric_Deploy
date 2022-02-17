@@ -1,0 +1,19 @@
+---
+- hosts: leaf
+  gather_facts: false
+
+  tasks:
+  - name: Configure Hardware TCAM settings
+    nxos_config:
+      lines:
+        - hardware access-list tcam region vpc-convergence 0
+        - hardware access-list tcam region arp-ether 256
+
+  - name: "Save Configuration"  
+    nxos_command:
+      commands: 
+      - copy running-config startup-config
+  
+  - name: Reboot switch to adjust TCAM table
+    cisco.nxos.nxos_reboot:
+      confirm: true

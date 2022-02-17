@@ -1,0 +1,8 @@
+nxos_provider:
+  username: admin
+  password: cisco
+  transport: cli
+  host: "{{ ansible_host }}"
+
+domain_name: mp1.fed.local
+underlay_protocol: ospf

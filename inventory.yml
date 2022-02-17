@@ -1,0 +1,18 @@
+all:
+  children:
+    spine:
+      hosts:
+        n9kv-s1:
+          ansible_host: 10.82.128.47
+          ansible_network_os: nxos
+        n9kv-s2:
+          ansible_host: 10.82.128.48
+          ansible_network_os: nxos
+    leaf:
+      hosts:
+        n9kv-l1:
+          ansible_host: 10.82.128.49
+          ansible_network_os: nxos
+        n9kv-l2:
+          ansible_host: 10.82.128.50
+          ansible_network_os: nxos

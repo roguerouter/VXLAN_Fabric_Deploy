@@ -1,0 +1,79 @@
+---
+- name: "Configure System"
+  nxos_system:
+    hostname: "{{ inventory_hostname }}"
+    domain_name: "{{ domain_name }}"
+    state: present
+  tags: 
+    - base
+
+
+- name: "Configure Banner"
+  nxos_banner:
+    banner: motd
+    text: "{{ lookup('file', './roles/common/config/banner.cfg') }}"
+    state: present
+  tags: 
+    - base
+  
+- name: "Configure User"
+  nxos_user:
+    name: cisco
+    password: <null - change me>
+    role: network-admin
+    state: present
+  tags: base
+
+- name: "Enable OSPF for Underlay"
+  nxos_feature:
+    feature: ospf
+    state: enabled
+  when: underlay_protocol == "ospf"
+  tags: 
+    - feature
+
+- name: "Enable ISIS for Underlay"
+  nxos_feature:
+    feature: isis
+    state: enabled
+  when: underlay_protocol == "isis"
+  tags: feature
+  
+
+- name: "Enable BGP"
+  nxos_feature:
+    feature: bgp
+    state: enabled
+  tags: feature
+
+- name: "Enable interface vlan"
+  nxos_feature:
+    feature: interface-vlan
+    state: enabled
+  tags: feature
+
+- name: "Enable multicast (PIM)"
+  nxos_feature:
+    feature: pim
+    state: enabled
+  tags: feature
+
+- name: "Enable VXLAN (nv overlay) "
+  nxos_feature:
+    feature: "nv overlay"
+    state: enabled
+  tags: feature
+
+- name: "Enable VXLAN VNI"
+  nxos_feature:
+    feature: "vn-segment-vlan-based"
+    state: enabled
+  tags: feature
+
+- name: "Enable Fabric Forwarding"
+  nxos_config:
+    lines:
+    - "configure terminal" 
+    - "feature fabric forwarding"
+  tags: feature
+  

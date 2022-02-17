@@ -1,0 +1,13 @@
+---
+- hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: "Revert system to day one config"
+      nxos_command:
+        commands: 
+        - copy running-config bootflash:/vxlan_fabric.config
+        - command: write erase
+          prompt: Do you want to proceed anyway? (y/n)
+          answer: y
+        - reload

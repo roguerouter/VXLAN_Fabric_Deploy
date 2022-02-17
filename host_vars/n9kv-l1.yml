@@ -1,0 +1,17 @@
+---
+loopback0_interface: loopback0
+loopback0_description: "Underlay Routing IP"
+loopback0_addr: 192.168.0.11
+loopback0_mask: /32
+loopback2_interface: loopback2
+loopback2_description: "VTEP IP"
+loopback2_addr: 10.168.0.11
+loopback2_mask: /32
+
+ethernet1_interface: Ethernet1/1
+ethernet1_description: "To n9kv-s1 - Eth1/1"
+ethernet2_interface: Ethernet1/2
+ethernet2_description: "To n9kv-s2 - Eth1/1"
+
+asn: 65500
+rid: 1.1.1.1

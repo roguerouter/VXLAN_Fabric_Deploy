@@ -1,0 +1,197 @@
+---
+- name: "Configure Interfaces"
+  nxos_interfaces:
+    config:
+    - name: "{{loopback0_interface}}"
+      description: "{{loopback0_description}}"
+    - name: "{{loopback1_interface}}"
+      description: "{{loopback1_description}}"
+    - name: "{{ethernet1_interface}}"
+      description: "{{ ethernet1_description }}"
+      mtu: 9216
+      enabled: true
+    - name: "{{ethernet2_interface}}"
+      description: "{{ ethernet2_description }}"
+      mtu: 9216
+      enabled: true
+    - name: "{{ethernet3_interface}}"
+      description: "{{ ethernet3_description }}"
+      mtu: 9216
+      enabled: true
+    - name: "{{ethernet4_interface}}"
+      description: "{{ ethernet4_description }}"
+      mtu: 9216
+      enabled: true
+  tags:
+    - underlay
+    - interface
+
+- name: "Configure Layer3 on Loopback Interfaces"
+  nxos_l3_interfaces:
+    config:
+    - name: '{{loopback0_interface}}'
+      ipv4:
+        - address: '{{ loopback0_addr + loopback0_mask }}'
+    - name: '{{loopback1_interface}}'
+      ipv4:
+        - address: '{{ loopback1_addr + loopback1_mask}}'
+  tags:
+    - underlay
+    - interface
+
+- name: "Configure IP Unnummbered on Physical Interfaces"
+  nxos_config:
+    lines:
+    - interface ethernet1/1 - 4
+    - no switchport
+    - medium p2p
+    - ip unnumbered loopback0
+    - no shutdown
+  tags:
+    - underlay
+    - interface
+
+- name: "Enable OSPF Routing on device"
+  cisco.nxos.nxos_ospfv2:
+    config:
+      processes:
+      - process_id: "VXLAN_UNDERLAY"
+        areas:
+        - area_id: 0.0.0.0
+          ranges:
+            - prefix: 0.0.0.0/0
+  when: underlay_protocol == "ospf"
+  tags:
+    - underlay
+    - ospf
+    
+- name: "Configure OSPF Underlay Routing on Interfaces"
+  cisco.nxos.nxos_ospf_interfaces:
+    config:
+      - name: "{{loopback0_interface}}"
+        address_family:
+        - afi: ipv4
+          processes:
+            - process_id: "VXLAN_UNDERLAY"
+              area:
+                area_id: 0.0.0.0
+      - name: "{{loopback1_interface}}"
+        address_family:
+        - afi: ipv4
+          processes:
+            - process_id: "VXLAN_UNDERLAY"
+              area:
+                area_id: 0.0.0.0
+      - name: "{{ethernet1_interface}}"
+        address_family:
+        - afi: ipv4
+          processes:
+            - process_id: "VXLAN_UNDERLAY"
+              area:
+                area_id: 0.0.0.0
+      - name: "{{ethernet2_interface}}"
+        address_family:
+        - afi: ipv4
+          processes:
+            - process_id: "VXLAN_UNDERLAY"
+              area:
+                area_id: 0.0.0.0
+      - name: "{{ethernet3_interface}}"
+        address_family:
+        - afi: ipv4
+          processes:
+            - process_id: "VXLAN_UNDERLAY"
+              area:
+                area_id: 0.0.0.0
+      - name: "{{ethernet4_interface}}"
+        address_family:
+        - afi: ipv4
+          processes:
+            - process_id: "VXLAN_UNDERLAY"
+              area:
+                area_id: 0.0.0.0
+  when: underlay_protocol == "ospf"
+  tags:
+    - underlay
+    - ospf
+
+- name: "Configure PIM on interfaces"
+  nxos_pim_interface:
+    interface: "{{ item.interface }}"
+    sparse: yes
+    state: present
+  with_items: "{{ layer3_interfaces }}"
+  tags: 
+    - underlay
+    - multicast
+
+- name: Configure PIM SSM Range
+  nxos_pim:
+    ssm_range: "{{ ssm_range }}"
+  tags: 
+    - underlay
+    - multicast
+
+- name: Configure PIM RP address
+  nxos_pim_rp_address:
+    rp_address: 1.2.3.4
+    group_list: "{{ group_list }}"
+  tags: 
+    - underlay
+    - multicast
+
+- name: Enable nv overlay
+  nxos_evpn_global:
+    nv_overlay_evpn: true
+  tags: overlay
+
+- name: Configure BGP
+  cisco.nxos.nxos_bgp_global:
+    config:
+      as_number: "{{ asn }}"
+      router_id: "{{ rid }}"
+      neighbors:
+        - neighbor_address: "{{ hostvars['n9kv-l1'].loopback0_addr }}"
+          remote_as: "{{ hostvars['n9kv-l1'].asn }}"
+        - neighbor_address: "{{ hostvars['n9kv-l2'].loopback0_addr }}"
+          remote_as: "{{ hostvars['n9kv-l2'].asn }}"
+  tags:
+    - bgp
+    - overlay
+
+- name: Configure BGP Address Family
+  cisco.nxos.nxos_bgp_neighbor_address_family:
+    config:
+      as_number: "{{ asn }}"
+      neighbors:
+        - neighbor_address: "{{ hostvars['n9kv-l1'].loopback0_addr}}"
+          address_family:
+            - afi: ipv4
+              safi: unicast
+              send_community:
+                extended: True
+              soft_reconfiguration_inbound:
+                set: True
+              route_reflector_client: yes
+            - afi: l2vpn
+              safi: evpn
+              send_community:
+                both: True
+              route_reflector_client: yes
+        - neighbor_address: "{{ hostvars['n9kv-l2'].loopback0_addr}}"
+          address_family:
+            - afi: ipv4
+              safi: unicast
+              send_community:
+                extended: True
+              soft_reconfiguration_inbound:
+                set: True
+              route_reflector_client: yes
+            - afi: l2vpn
+              safi: evpn
+              send_community:
+                both: True
+              route_reflector_client: yes
+  tags:
+    - bgp
+    - overlay

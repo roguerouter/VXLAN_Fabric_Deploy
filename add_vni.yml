@@ -1,0 +1,26 @@
+---
+- hosts: leaf
+  gather_facts: false
+
+  tasks:
+  - name: Configure VLAN and assign VNI
+    nxos_vlans:
+      config:
+      - vlan_id: 50
+        name: vlan50
+        mapped_vni: 100500
+  
+  - name: Configure VNI on NVE interface
+    nxos_vxlan_vtep_vni:
+      interface: nve1
+      multicast_group: "239.0.0.50"
+      vni: 100500
+  
+  - name: Configure VNI on EVPN
+    cisco.nxos.nxos_evpn_vni:
+      vni: 100500
+      route_distinguisher: auto
+      route_target_import: auto
+      route_target_export: auto
+
+  
