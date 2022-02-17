@@ -1,0 +1,9 @@
+---
+- hosts: all
+  gather_facts: false
+
+  tasks:
+  - name: "Create day 1 config"
+    nxos_command:
+      commands: 
+      - copy running-config bootflash:/day-one.config
