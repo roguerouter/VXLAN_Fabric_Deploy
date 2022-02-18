@@ -178,6 +178,6 @@
     interface: nve1
     description: Ansible Configured NVE interface
     host_reachability: true
-    source_interface: Loopback0
+    source_interface: Loopback2
     source_interface_hold_down_time: 30
     shutdown: no
