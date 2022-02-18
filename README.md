@@ -19,11 +19,13 @@ At a minimum, the playbooks require at you have SSH connectivity to your devices
 
 Use IP addresses that you are able to assign to CML and are accessible from your Ansible server.  Assign the addresses to the management interfaces of each device.  Document what IP you assign to each device as these will be needed in the inventory.yml file to identify the correct switch.
 
+```
 vrf context management
   ip route 0.0.0.0/0 X.X.X.X
 interface mgmt0
   vrf member management
   ip address X.X.X.X/YY
+```
 
 Validate you can reach each device via SSH before proceeding.
 
