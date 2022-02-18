@@ -15,14 +15,6 @@
     state: present
   tags: 
     - base
-  
-- name: "Configure User"
-  nxos_user:
-    name: cisco
-    password: <null - change me>
-    role: network-admin
-    state: present
-  tags: base
 
 - name: "Enable OSPF for Underlay"
   nxos_feature:

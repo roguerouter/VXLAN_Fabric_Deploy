@@ -2,3 +2,10 @@ ansible_connection: ansible.netcommon.network_cli
 ansible_user: admin
 transport: cli
 host: "{{ ansible_host }}"
+
+domain_name: mydomain.local
+underlay_protocol: ospf
+ssm_range: 232.0.0.0/8
+group_list: 224.0.0.0/4
+anycast_gw_mac: 0001.abcd.0a0a
+asn: 65500

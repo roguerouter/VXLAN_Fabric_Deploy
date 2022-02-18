@@ -7,7 +7,7 @@
     nxos_config:
       lines:
         - hardware access-list tcam region vpc-convergence 0
-        - hardware access-list tcam region arp-ether 256
+        - hardware access-list tcam region arp-ether 256 double-wide
 
   - name: "Save Configuration"  
     nxos_command:

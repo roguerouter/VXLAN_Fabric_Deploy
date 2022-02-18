@@ -13,5 +13,4 @@ ethernet1_description: "To n9kv-s1 - Eth1/4"
 ethernet2_interface: Ethernet1/2
 ethernet2_description: "To n9kv-s2 - Eth1/4"
 
-asn: 65500
 rid: 1.1.1.4
