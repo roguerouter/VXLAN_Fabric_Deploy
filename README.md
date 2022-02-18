@@ -57,15 +57,15 @@ Basic verification that everything is operating will be a ping between devices i
 
 - Verify underlay routing:
   - show ip route
-  - *From leaf 1 ping leaf 2* show ip route 10.168.0.12 *Verify two paths exist through Eth1/1 and Eth1/2*
-  - *From leaf 2 ping leaf 2*  show ip route 10.168.0.11 *Verify two paths exist through Eth1/1 and Eth1/2*
-  - *Verify leaf 1 can ping leaf 2* ping 10.168.0.12 source-interface loopback2
-  - *Verify leaf 2 can ping leaf 1* ping 10.168.0.11 source-interface loopback2
+  - *From leaf 1 ping leaf 2*, show ip route 10.168.0.12 ,*Verify two paths exist through Eth1/1 and Eth1/2*
+  - *From leaf 2 ping leaf 2*,  show ip route 10.168.0.11 ,*Verify two paths exist through Eth1/1 and Eth1/2*
+  - *Verify leaf 1 can ping leaf 2*, ping 10.168.0.12 source-interface loopback2
+  - *Verify leaf 2 can ping leaf 1*, ping 10.168.0.11 source-interface loopback2
 - Verify overlay routing:
   - show ip bgp summary
 - Verify VXLAN operation:
   - show vxlan
-  - show nve peers *Only works when traffic has been generated from hosts associated with VLAN/VXLAN*
+  - show nve peers ,*Only works when traffic has been generated from hosts associated with VLAN/VXLAN*
   - sho bgp l2vpn evpn
   - sho bgp l2vpn evpn vni-id 100500
 
