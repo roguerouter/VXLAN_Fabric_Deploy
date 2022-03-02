@@ -103,3 +103,18 @@
     body_format: json
     status_code: 200,201,204
     validate_certs: no
+
+- name: "Configure NVE Interface"
+  uri:
+    url: https://{{ansible_host}}{{base_uri}}/eps-items
+    method: POST
+    headers:
+      Authorization: "{{ authorization }}"
+      Cookie: "{{ cookie }}"
+      Accept: 'application/yang.data+json'
+      Content-Type: 'application/yang.data+json'
+    return_content: yes
+    body: "{{ lookup('template','nve_interface_config.json.j2') }}"
+    body_format: json
+    status_code: 200,201,204
+    validate_certs: no
