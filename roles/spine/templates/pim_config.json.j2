@@ -1,0 +1,45 @@
+{
+  "if-items": {
+    "If-list": [
+      {
+        "id": "{{pimrp_loopback_id}}",
+        "pimSparseMode": "true"
+      },
+      {
+        "id": "{{spine_downlink_1}}",
+        "pimSparseMode": "true"
+      },
+      {
+        "id": "{{spine_downlink_2}}",
+        "pimSparseMode": "true"
+      },
+      {
+        "id": "{{underlay_loopback_id}}",
+        "pimSparseMode": "true"
+      }
+    ]
+  },
+  "ssm-items": {
+    "range-items": {
+      "grpList": "{{ssm_range}}"
+    }
+  },
+  "staticrp-items": {
+    "rp-items": {
+      "StaticRP-list": [
+        {
+          "addr": "{{pimrp_loopback_ip}}",
+          "rpgrplist-items": {
+            "RPGrpList-list": [
+              {
+                "bidir": "false",
+                "grpListName": "{{group_list}}",
+                "override": "false"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

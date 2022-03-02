@@ -4,8 +4,23 @@ transport: cli
 host: "{{ ansible_host }}"
 
 domain_name: mydomain.local
-underlay_protocol: ospf
+
+base_uri: "/restconf/data/Cisco-NX-OS-device:System"
+
+mask32: "/32"
+underlay_loopback_id: lo0
+underlay_loopback_desc: "Underlay routing interface"
+pimrp_loopback_id: lo2
+pimrp_loopback_desc: "PIM RP address"
+pimrp_loopback_ip: 1.2.3.4/32
+vtep_loopback_id: lo3
+vtep_loopback_desc: "VTEP Interface"
 ssm_range: 232.0.0.0/8
 group_list: 224.0.0.0/4
 anycast_gw_mac: 0001.abcd.0a0a
 asn: 65500
+ospf_instance_name: "VXLAN_UNDERLAY"
+spine_peer_template_name: VXLAN_SPINE_PEERS
+leaf_peer_template_name: VXLAN_LEAF_PEERS
+
+backup_config: False

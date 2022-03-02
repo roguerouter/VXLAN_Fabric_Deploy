@@ -1,0 +1,17 @@
+---
+- hosts: all
+  gather_facts: false
+
+  tasks:
+  - name: "Verify rest operation"
+    uri:
+      url: https://{{ansible_host}}{{base_uri}}/name
+      method: GET
+      headers:
+        Authorization: "{{ authorization }}"
+        Cookie: "{{ cookie }}"
+        Accept: 'application/yang.data+json'
+        Content-Type: 'application/yang.data+json'
+      return_content: yes
+      status_code: 200,201,204
+      validate_certs: no

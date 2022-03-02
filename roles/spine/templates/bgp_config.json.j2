@@ -1,0 +1,66 @@
+{
+  "inst-items": {
+    "asn": "{{asn}}",
+    "dom-items": {
+      "Dom-list": [
+        {
+          "name": "default",
+          "rtrId": "{{bgp_rid}}",
+          "peer-items": {
+            "Peer-list": [
+              {
+                "addr": "{{hostvars['n9kv-l1'].underlay_loopback_ip}}",
+                "inheritContPeerCtrl": "",
+                "peerImp": "{{leaf_peer_template_name}}"
+              },
+              {
+                "addr": "{{hostvars['n9kv-l2'].underlay_loopback_ip}}",
+                "inheritContPeerCtrl": "",
+                "peerImp": "{{leaf_peer_template_name}}"
+              }
+            ]
+          },
+          "peercont-items": {
+            "PeerCont-list": [
+              {
+                "asn": "65500",
+                "inheritContPeerCtrl": "",
+                "name": "{{leaf_peer_template_name}}",
+                "srcIf": "{{underlay_loopback_id}}",
+                "af-items": {
+                  "PeerAf-list": [
+                    {
+                      "inheritContPeerPolicyCtrl": "",
+                      "sendComExt": "enabled",
+                      "sendComStd": "enabled",
+                      "type": "l2vpn-evpn"
+                    },
+                    {
+                      "inheritContPeerPolicyCtrl": "",
+                      "sendComExt": "enabled",
+                      "softReconfigBackup": "inbound",
+                      "type": "ipv4-ucast"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "af-items": {
+            "DomAf-list": [
+              {
+                "retainRttAll": "enabled",
+                "retainRttRtMap": "",
+                "type": "l2vpn-evpn"
+              },
+              {
+                "type": "ipv4-ucast"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+  

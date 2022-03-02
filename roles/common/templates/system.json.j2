@@ -1,0 +1,25 @@
+{
+  "name": "{{inventory_hostname}}",
+  "userext-items": {
+    "preloginbanner-items": {
+      "delimiter": "@",
+      "message": "\n*** AUTHORIZED USE ONLY.  USE OF THIS NETWORK DEVICE CONSTITUTES CONSENT TO MONITORING AND LOGGING OF ACTIVITY.  ***\n"
+    }
+  },
+  "dns-items": {
+    "adminSt": "enabled",
+    "prof-items": {
+      "Prof-list": [
+        {
+          "name": "default",
+          "dom-items": {
+            "name": "{{domain_name}}"
+          }
+        }
+      ]
+    }
+  },
+  "nxapi-items": {
+    "idleTimeout": "10"
+  }
+}

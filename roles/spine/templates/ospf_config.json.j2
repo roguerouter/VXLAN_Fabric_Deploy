@@ -1,0 +1,40 @@
+{
+      "inst-items": {
+        "Inst-list": [
+          {
+            "name": "{{ospf_instance_name}}",
+            "dom-items": {
+              "Dom-list": [
+                {
+                  "name": "default",
+                  "if-items": {
+                    "If-list": [
+                      {
+                        "advertiseSecondaries": "true",
+                        "area": "0.0.0.0",
+                        "id": "{{pimrp_loopback_id}}"
+                      },
+                      {
+                        "advertiseSecondaries": "true",
+                        "area": "0.0.0.0",
+                        "id": "{{spine_downlink_1}}"
+                      },
+                      {
+                        "advertiseSecondaries": "true",
+                        "area": "0.0.0.0",
+                        "id": "{{spine_downlink_2}}"
+                      },
+                      {
+                        "advertiseSecondaries": "true",
+                        "area": "0.0.0.0",
+                        "id": "{{underlay_loopback_id}}"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }

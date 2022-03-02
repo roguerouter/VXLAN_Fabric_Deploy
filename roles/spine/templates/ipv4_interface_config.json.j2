@@ -1,0 +1,38 @@
+{
+ "If-list": [
+   {
+     "id": "{{pimrp_loopback_id}}",
+     "addr-items": {
+       "Addr-list": [
+         {
+           "addr": "{{pimrp_loopback_ip}}",
+           "pref": "0",
+           "tag": "0",
+           "type": "primary"
+         }
+       ]
+     }
+   },
+   {
+     "id": "{{spine_downlink_1}}",
+     "unnumbered": "{{underlay_loopback_id}}"
+   },
+   {
+     "id": "{{spine_downlink_2}}",
+     "unnumbered": "{{underlay_loopback_id}}"
+   },
+   {
+     "id": "{{underlay_loopback_id}}",
+     "addr-items": {
+       "Addr-list": [
+         {
+           "addr": "{{underlay_loopback_ip}}{{mask32}}",
+           "pref": "0",
+           "tag": "0",
+           "type": "primary"
+         }
+       ]
+     }
+   }
+ ]
+}

@@ -1,0 +1,22 @@
+{
+  "PhysIf-list": [
+    {
+      "adminSt": "up",
+      "descr": "To {{hostvars['n9kv-s1'].inventory_hostname}} - {{spine_downlink_interface}}",
+      "id": "{{leaf_uplink_1}}",
+      "layer": "Layer3",
+      "medium": "p2p",
+      "mtu": "9216",
+      "userCfgdFlags": "admin_layer,admin_mtu,admin_state"
+    },
+    {
+      "adminSt": "up",
+      "descr": "To {{hostvars['n9kv-s2'].inventory_hostname}} - {{spine_downlink_interface}}",
+      "id": "{{leaf_uplink_2}}",
+      "layer": "Layer3",
+      "medium": "p2p",
+      "mtu": "9216",
+      "userCfgdFlags": "admin_layer,admin_mtu,admin_state"
+    }
+  ]
+}
