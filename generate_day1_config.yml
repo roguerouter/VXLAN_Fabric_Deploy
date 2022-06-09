@@ -6,4 +6,4 @@
   - name: "Create day 1 config"
     nxos_command:
       commands: 
-      - copy running-config bootflash:/day-one.config
+      - checkpoint day_one_config

@@ -1,0 +1,20 @@
+---
+- hosts: spine
+  gather_facts: false
+
+  tasks:
+  
+  - name: "Login to device and get API token"
+    uri:
+      url: https://{{ansible_host}}/api/aaaLogin.json
+      method: POST
+      return_content: yes
+      body: '{ "aaaUser": { "attributes": { "name": "admin", "pwd": "S3f3d3ra1t3@m" }}}'
+      body_format: json
+      status_code: 200,201,204
+      validate_certs: no
+    register: token
+  
+  - name: "Token Data"
+    ansible.builtin.debug:
+      var: token.json.imdata[0].aaaLogin.attributes.token

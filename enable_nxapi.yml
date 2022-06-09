@@ -1,0 +1,9 @@
+---
+- hosts: all
+  gather_facts: false
+
+  tasks:
+  - name: "Enable NX-API"
+    nxos_feature:
+      feature: nxapi
+      state: enabled

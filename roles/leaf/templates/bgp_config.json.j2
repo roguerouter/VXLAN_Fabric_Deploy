@@ -5,7 +5,7 @@
       "Dom-list": [
         {
           "name": "default",
-          "rtrId": "1.1.1.1",
+          "rtrId": "{{bgp_rid}}",
           "peer-items": {
             "Peer-list": [
               {
@@ -49,6 +49,7 @@
           "af-items": {
             "DomAf-list": [
               {
+                "maxExtEcmp": "2",
                 "retainRttAll": "enabled",
                 "retainRttRtMap": "",
                 "type": "l2vpn-evpn"

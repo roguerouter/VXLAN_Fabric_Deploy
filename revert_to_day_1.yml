@@ -3,25 +3,7 @@
   gather_facts: false
 
   tasks:
-    - name: "Backup existing config before reverting"
+    - name: "Revert config to day 1"
       nxos_command:
         commands: 
-        - delete bootflash:/vxlan_fabric.config no-prompt
-        - copy running-config bootflash:/vxlan_fabric.config
-      when: backup_config == True
-
-    - name: "Erase Startup Configuration"
-      nxos_command:
-        commands:
-        - command: 'write erase'    
-          prompt: 'Do you wish to proceed anyway\? \(y/n\)  \[n\]'
-          answer: 'y'
-
-    - name: "Revert system to day one config"
-      nxos_command:
-        commands: 
-        - copy bootflash:/day-one.config startup-config
-    
-    - name: "Reboot switch to complete changes"
-      cisco.nxos.nxos_reboot:
-        confirm: true
+        - rollback running-config checkpoint day_one_config

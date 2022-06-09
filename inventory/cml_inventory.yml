@@ -11,7 +11,7 @@ all:
           underlay_loopback_ip: 192.168.0.1
           vtep_loopback_ip: 10.168.0.1
           bgp_rid: 1.1.1.1
-          
+   
         n9kv-s2:
           ansible_host: 10.82.128.48
           ansible_network_os: nxos
@@ -21,7 +21,7 @@ all:
           underlay_loopback_ip: 192.168.0.2
           vtep_loopback_ip: 10.168.0.2
           bgp_rid: 1.1.1.2
-          
+    
     leaf:
       hosts:
         n9kv-l1:

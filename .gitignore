@@ -4,3 +4,5 @@ hardware_tcam_settings.yml
 remove_vni.yml
 generate_day1_config.yml
 /host_vars
+/venv
+/vxlan_pyats_tests

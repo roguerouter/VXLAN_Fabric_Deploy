@@ -23,4 +23,13 @@
       route_target_import: auto
       route_target_export: auto
 
-  
+  - name: Configure switchport
+    cisco.nxos.nxos_command:
+      commands: 
+      - configure terminal
+      - interface ethernet 1/3
+      - switchport
+      - switchport mode access
+      - switchport access vlan 50
+      - spanning-tree port type edge
+      - no shutdown
