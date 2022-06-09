@@ -25,5 +25,5 @@ leaf_peer_template_name: VXLAN_LEAF_PEERS
 
 backup_config: False
 
-authorization: Basic YWRtaW46UzNmM2QzcmExdDNAbQ==
-cookie: HcNC7wpsLqHItb0r3wW9mmeAFFZl2M6sq4LCXj2OLkUuTsEOGUpQjIIIti4u+fIYltf1FN+enIPM/A0QS8kHSxNrDunnekP5Oi79CenLt+HvWjCIPBpuT8mmev+0NaVRKj5ow6V8moAzmGgdyw6+/1plV1btLEkJtEEzqmhOPf0=
+authorization: 
+cookie: 

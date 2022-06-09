@@ -1,5 +1,5 @@
 ---
-- hosts: spine
+- hosts: all
   gather_facts: false
 
   tasks:
@@ -9,7 +9,7 @@
       url: https://{{ansible_host}}/api/aaaLogin.json
       method: POST
       return_content: yes
-      body: '{ "aaaUser": { "attributes": { "name": "admin", "pwd": "S3f3d3ra1t3@m" }}}'
+      body: '{ "aaaUser": { "attributes": { "name": "", "pwd": "" }}}'
       body_format: json
       status_code: 200,201,204
       validate_certs: no
