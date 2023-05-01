@@ -7,3 +7,8 @@
     nxos_feature:
       feature: nxapi
       state: enabled
+      
+  - name: "Enable Restconf"
+    nxos_feature:
+      feature: restconf
+      state: enabled

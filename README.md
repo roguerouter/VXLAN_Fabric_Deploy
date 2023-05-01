@@ -34,11 +34,11 @@ Validate you can reach each device via SSH before proceeding.
 Playbooks should be run in this order:
 
 - enable_nxapi.yml
-  - Enables the NXAPI feature to allow deployment of code, you'll only need to run this once.
+  - Enables the NXAPI and Restconf features to allow deployment of code, you'll only need to run this once.
 - generate_day1_config.yml
   - Generate Day 1 config will create a checkpoint of the device as it exists before deploying the code.  You should ensure that everything you want set for initial startup is complete (IP address, username/password, etc.).  This will allow you to revert to a clean state if the code fails or if you want to start from scratch.
 - get_nxapi_token.yml (run as follows: ansible-playbook get_nxapi_token.yml -i inventory/cml_inventory.yml -u admin -k --limit="n9kv-s1")
-  - Retrieves a token based on the provided username and password limited to a single node.  The resulting output is displayed in the "token.json.imdata[0].aaaLogin.attributes.token" Token Data output.  You'll need to copy the token data and place it in to the group_vars/all.yml file in the cookie variable.  After running this command, run "echo -n user:password | base64" (change your username / password) to get your Authorization string to add to the all.yml file.
+  - Retrieves a token based on the provided username and password limited to a single node.  The resulting output is displayed in the "token.json.imdata[0].aaaLogin.attributes.token" Token Data output.  You'll need to copy the token data and place it in to the group_vars/all.yml file in the cookie variable.  After running this command, run "echo -n user:password | base64" (change your username / password) to get your Authorization string to add to the all.yml file.  The authorization value should be "Basic <base64_command_result>", ie "Basic ZGlkeW91cmVhbGx5OnRoaW5rdGhpc3dhc2FwYXNzd29yZA==" (That is not a real username and password, protect your base64 value, the data can be easily decoded by anyone with a base64 decoder).
 - hardware_tcam_settings.yml
   - Only necessary when deploying on CML instances, on physical HW you can skip this.  Adjusts TCAM space to enable ARP supression capability.  ARP suppression functionality requires that ARP-ETHER TCAM has space added to it.  For this example we zero out vpc-convergence and add the space to arp-ether.  The box will then reboot to apply changes.
 - initialize_vxlan_fabric.yml

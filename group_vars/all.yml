@@ -25,5 +25,5 @@ leaf_peer_template_name: VXLAN_LEAF_PEERS
 
 backup_config: False
 
-authorization: 
-cookie: 
+authorization: "Basic <change_to_your_base64_value>"
+cookie: ""
